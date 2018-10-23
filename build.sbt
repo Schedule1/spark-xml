@@ -1,6 +1,8 @@
+import sbt.{Credentials, Path}
+
 name := "spark-xml"
 
-version := "0.4.2"
+version := "0.4.2dp1"
 
 organization := "com.databricks"
 
@@ -75,3 +77,19 @@ ScoverageSbtPlugin.ScoverageKeys.coverageHighlighting := {
   if (scalaBinaryVersion.value == "2.10") false
   else true
 }
+
+
+
+publishTo := {
+
+  val host = "http://ec2-34-214-69-114.us-west-2.compute.amazonaws.com:8081"
+  val releases = "Schedule1 Nexus3 Releases" at s"${host}/repository/maven-releases/"
+  val snapshots = "Schedule1 Nexus3 Snapshots" at s"${host}/repository/maven-snapshots/"
+
+  if(isSnapshot.value)
+    Some(snapshots)
+  else
+    Some(releases)
+}
+
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")

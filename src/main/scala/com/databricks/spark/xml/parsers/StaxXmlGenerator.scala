@@ -136,5 +136,7 @@ private[xml] object StaxXmlGenerator {
     val elementRow = Row.fromSeq(row.toSeq.filter(values.contains))
     writeElement(elementSchema, elementRow)
     writer.writeEndElement()
+
+    writer.flush()
   }
 }
